@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Weather app</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{%static 'css/main.css' %}">
+  <script src="{%static 'js/main.js' %}"></script>
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="weather-side">
+      <div class="weather-gradient"></div>
+      <div class="date-container">
+        <h2 class="date-dayname">{{weather_data.day}}</h2><span class="date-day">{{weather_data.date}}</span><i
+          class="location-icon" data-feather="map-pin"></i><span class="location">{{weather_data.city}},
+          {{weather_data.country}}</span>
+      </div>
+      <div class="weather-container"><i class="weather-icon" data-feather="sun"></i>
+        <h1 class="weather-temp">{{weather_data.temperature}}</h1>
+        <h3 class="weather-desc">{{weather_data.description}}</h3>
+      </div>
+    </div>
+    <div class="info-side">
+      <div class="today-info-container">
+        <div class="today-info">
+          <div class="min"> <span class="title">Min Temperature</span><span class="value">{{weather_data.temp_min}}</span>
+            <div class="clear"></div>
+          </div>
+          <div class="max"> <span class="title">Max Temperature</span><span class="value">{{weather_data.temp_max}}</span>
+            <div class="clear"></div>
+          </div>
+          <div class="humidity"> <span class="title">HUMIDITY</span><span class="value">{{weather_data.humidity}}%</span>
+            <div class="clear"></div>
+          </div>
+          <div class="wind"> <span class="title">WIND</span><span class="value">{{weather_data.wind}} km/h</span>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <div class="week-container">
+        <ul class="week-list">
+          <li class="active"><i class="day-icon" data-feather="sun"></i><span class="day-name">Sunrise</span><span
+              class="day-temp">{{weather_data.sunrise}}</span></li>
+          <li><i class="day-icon" data-feather="cloud"></i><span class="day-name">Sunset</span><span
+              class="day-temp">{{weather_data.sunset}}</span></li>
+          <div class="clear"></div>
+        </ul>
+      </div>
+      <div class="location-container">
+        <!-- Button trigger modal -->
+        <button type="button" class="location-button btn btn-primary" data-toggle="modal"
+          data-target="#exampleModalCenter">
+          <i data-feather="map-pin"></i>
+          <span>Change location</span>
+        </button>
+
+        <!-- Modal -->
+        <form action="{% url 'home' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="location" placeholder="Enter Location" name="location"
+                      required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="Submi" class="btn btn-primary">Change Location</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
